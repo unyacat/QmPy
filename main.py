@@ -13,13 +13,13 @@ import os
 parser = argparse.ArgumentParser()
 # init_parameter-----------------------------------------------------------
 # モデル用
-parser.add_argument('--r', default = 2500) # 磁石半径[μm]
-parser.add_argument('--thick', default = 1000) # 磁石厚さ[μm]
-parser.add_argument('--gap', default = 200) # 磁石間ギャップ[μm]
-parser.add_argument('--y', default = 9500) # 中央磁石の移動[μm]
+parser.add_argument('--r', default = 2500, type=float) # 磁石半径[μm]
+parser.add_argument('--thick', default = 1000, type=float) # 磁石厚さ[μm]
+parser.add_argument('--gap', default = 200, type=float) # 磁石間ギャップ[μm]
+parser.add_argument('--y', default = 9500, type=float) # 中央磁石の移動[μm]
 
-parser.add_argument('--m', default = 26) # 磁石m角形近似
-parser.add_argument('--n', default = 2) # 動かす磁石以外の磁石個数
+parser.add_argument('--m', default = 26, type=float) # 磁石m角形近似
+parser.add_argument('--n', default = 2, type=int) # 動かす磁石以外の磁石個数
 
 # パス関連
 parser.add_argument('path') # パスに入力したい名前
@@ -30,20 +30,20 @@ parser.add_argument('--filename', default = 'none')  # ファイル名
 args = parser.parse_args()
 
 # コマンドライン引数を正しい型に変換
-r = float(args.r)
-thick = float(args.thick)
-gap = float(args.gap)
-y = float(args.y)
-m = float(args.m)
-n = int(args.n)
+r = args.r
+thick = args.thick
+gap = args.gap
+y = args.y
+m = args.m
+n = args.n
 filename = args.filename
 
-print('引数 r : ', args.r)  # 磁石半径[μm]
-print('引数 thick: ', args.thick)  # 磁石厚さ[μm]
-print('引数 gap : ', args.gap)  # 磁石間ギャップ[μm]
-print('引数 y : ', args.y)  # 中央磁石の移動[μm]
-print('引数 m : ', args.m)  # 磁石m角形近似
-print('引数 n : ', args.n)  # 動かす磁石以外の磁石個数
+print('引数 r : ', r)  # 磁石半径[μm]
+print('引数 thick: ', thick)  # 磁石厚さ[μm]
+print('引数 gap : ', gap)  # 磁石間ギャップ[μm]
+print('引数 y : ', y)  # 中央磁石の移動[μm]
+print('引数 m : ', m)  # 磁石m角形近似
+print('引数 n : ', n)  # 動かす磁石以外の磁石個数
 
 
 # パス調整 - TODO: よしなにする
