@@ -25,7 +25,6 @@ parser.add_argument('--filename', default='none', help="ファイル名")
 
 args = parser.parse_args()
 
-# コマンドライン引数を正しい型に変換
 r = args.r
 thick = args.thick
 gap = args.gap
