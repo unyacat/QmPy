@@ -9,17 +9,17 @@ import os
 parser = argparse.ArgumentParser()
 # init_parameter-----------------------------------------------------------
 # モデル用
-parser.add_argument('--r', default=2500, type=float) # 磁石半径[μm]
-parser.add_argument('--thick', default=1000, type=float) # 磁石厚さ[μm]
-parser.add_argument('--gap', default=200, type=float) # 磁石間ギャップ[μm]
-parser.add_argument('--y', default=9500, type=float) # 中央磁石の移動[μm]
+parser.add_argument('--r', default=2500, type=float, help="磁石半径[μm]")
+parser.add_argument('--thick', default=1000, type=float, help="磁石厚さ[μm]")
+parser.add_argument('--gap', default=200, type=float, help="磁石間ギャップ[μm]")
+parser.add_argument('--y', default=9500, type=float, help="中央磁石の移動[μm]")
 
-parser.add_argument('--m', default=26, type=float) # 磁石m角形近似
-parser.add_argument('--n', default=2, type=int) # 動かす磁石以外の磁石個数
+parser.add_argument('--m', default=26, type=float, help="磁石m角形近似")
+parser.add_argument('--n', default=2, type=int, help="動かす磁石以外の磁石個数")
 
 # パス関連
-parser.add_argument('path') # パスに入力したい名前
-parser.add_argument('--filename', default='none')  # ファイル名
+parser.add_argument('path', help="パスに入力したい名前")
+parser.add_argument('--filename', default='none', help="ファイル名")
 
 # -------------------------------------------------------------------------
 
@@ -49,7 +49,7 @@ path = path + '.Pin'
 
 
 # 磁石配置用の計算をゴネゴネする - TODO: よしなにする
-d = 2*((4*r + 2*gap)*math.cos(math.radians(45))) # 円形磁石間距離
+d = 2*((4*r + 2*gap)*math.cos(math.radians(45)))  # 円形磁石間距離
 
 z_ofst_1 = -thick/2  # 1つめ磁石Z軸オフセット
 z_ofst_2 = -thick/2  # 2つめ磁石Z軸オフセット
