@@ -1,7 +1,7 @@
 # 各形の磁石を定義する
 
 class CircleMagnet:
-    def __init__(self, r, thick, m, x_ofst, y_ofst, z_ofst, n, d, gap, script, group_id, node_id):
+    def __init__(self, r, thick, m, x_ofst, y_ofst, z_ofst, n, d, gap):
         self.r = r                 # 磁石半径[μm]
         self.thick = thick         # 磁石厚さ[μm]
         self.m = m                 # 磁石m角形近似
@@ -85,7 +85,7 @@ class CircleMagnet:
             ]
         ]
 
-    def plant(self):
+    def plant(self, group_id, node_id, script):
         """
         磁石を配置する
         """
