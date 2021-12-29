@@ -49,7 +49,8 @@ print('引数 n : ', args.n)  # 動かす磁石以外の磁石個数
 # パス調整 - TODO: よしなにする
 path = os.getcwd()
 path = path + "\\" + str(filename)
-path = path + '.Pin'
+pin_path = path + '.Pin'
+qit_path = path + '.Qit'
 
 
 # 磁石配置用の計算をゴネゴネする - TODO: よしなにする
@@ -72,42 +73,64 @@ x_ofst_2 = (x_ofst_1 + x_ofst_3)/2# 2つめ磁石X軸オフセット
 
 group_id = 1
 node_id = 1
-script = ""
+nMatcnt = 0
+nDatcnt = 0
+nID = 1
+
+pin_script = ""
+qit_script = ""
 
 
 # 時候の挨拶
-script += f"""#solverは未定義でQm5.00が指定される
+pin_script += f"""
 solver Qm 5.00
 scale 0.000001
 #node番号表示
 $nodenum grp on
 """
 
+qit_script += f"""
+[Title
+sUser = "NOMAN"
+sTitle = "Qm sim"
+]
+
+[Include
+bLogList = F
+bQic = T
+]
+
+[Solver
+sName = StaticMagnetic
+]
+
+[Option
+bAutoPanel = T
+bPanelSaved = T
+sPanelStat = POST
+sMatrixSolver = MKL_LAPACK
+]
+"""
+
 # 磁石を置く
 ## 1つ目の円形磁石オブジェクトを生成する
-Magnet1 = magnets.CircleMagnet(r=r, thick=thick, m=m, x_ofst=x_ofst_1, y_ofst=y_ofst_1, z_ofst=z_ofst_1, n=n, d=d, gap=gap, script=script, group_id=group_id, node_id=node_id)
+Magnet1 = magnets.CircleMagnet(r=r, thick=thick, m=m, x_ofst=x_ofst_1, y_ofst=y_ofst_1, z_ofst=z_ofst_1, n=n, d=d, gap=gap, pin_script=pin_script,
+qit_script=qit_script, group_id=group_id, node_id=node_id, nMatcnt=nMatcnt, nDatcnt=nDatcnt, nID)
 ## 円形磁石を配置する
 Magnet1.plant()
-## script, group_id, node_id を返してもらう
-script, group_id, node_id = Magnet1.get_scripts()
-
-
-## 2つ目の円形磁石オブジェクトを生成する
-Magnet2 = magnets.CircleMagnet(r=r, thick=thick, m=m, x_ofst=x_ofst_2, y_ofst=y_ofst_2, z_ofst=z_ofst_2, n=n-1, d=d, gap=gap, script=script, group_id=group_id, node_id=node_id)
-Magnet2.plant()
 ## 円形磁石を測定対象に指定する
-Magnet2.measure_frustum()
-script, group_id, node_id = Magnet2.get_scripts()
-
-## 3つ目の円形磁石オブジェクトを生成する
-Magnet3 = magnets.CircleMagnet(r=r, thick=thick, m=m, x_ofst=x_ofst_3, y_ofst=y_ofst_3, z_ofst=z_ofst_3, n=n, d=d, gap=gap, script=script, group_id=group_id, node_id=node_id)
-Magnet3.plant()
-script, group_id, node_id = Magnet3.get_scripts()
-
+Magnet1.measure_frustum()
+## qitファイルを生成
+Magnet1.make_qit_script()
+## pin_script, qit_script, group_id, node_id, nMatcnt, nDatcnt, nID を返してもらう
+pin_script, qit_script, group_id, node_id, nMatcnt, nDatcnt, nID = Magnet1.get_scripts()
 
 # ファイルに出力する
-with open(path, "w") as f:
-    f.write(script)
+with open(pin_path, "w") as f:
+    f.write(pin_script)
+f.close()
+with open(qit_path, "w") as f:
+    f.write(pin_script)
 f.close()
 
 
