@@ -54,7 +54,7 @@ class CircleMagnet:
                 [  - self.x_QSf_ofst,   - self.y_QSf_ofst,   - self.z_QSf_ofst],
                 [self.mw + self.x_QSf_ofst,     - self.y_QSf_ofst,   - self.z_QSf_ofst],
                 [self.mw + self.x_QSf_ofst,     - self.y_QSf_ofst, self.thick + self.z_QSf_ofst],
-                [  - sLelf.x_QSf_ofst,   - self.y_QSf_ofst, self.thick + self.z_QSf_ofst]
+                [  - self.x_QSf_ofst,   - self.y_QSf_ofst, self.thick + self.z_QSf_ofst]
             ],
             [
                 [  - self.x_QSf_ofst, self.ml + self.y_QSf_ofst,     - self.z_QSf_ofst],
